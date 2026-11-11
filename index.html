@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1f8f8">
+  <title>Soft-Walker · Proprioceptive Force-Guided Humanoid Locomotion</title>
+  <meta name="description" content="Soft-Walker coordinates local yielding and whole-body motion through compliance interaction latents, using proprioceptive histories for anchor-free physical guidance.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+  <noscript><style>.tabs{display:none}#panel-base[hidden]{display:grid!important}</style></noscript>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Soft-Walker home"><span class="brand-mark" aria-hidden="true">s<span>w</span></span>Soft-Walker</a>
+      <div class="nav-links"><a href="#overview">Overview</a><a href="#method">Method</a><a href="#results">Results</a></div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="project-title">
+      <div class="container hero-inner">
+        <p class="eyebrow hero-eyebrow"><span class="status-dot" aria-hidden="true"></span>Learning to move with physical guidance</p>
+        <h1 id="project-title"><span class="project-name">Soft-Walker</span><span class="project-subtitle">Proprioceptive Force-Guided Humanoid Locomotion<br class="desktop-break"> via Compliance Interaction Latents</span></h1>
+        <div class="hero-actions"><a class="button button-primary" href="#method">Explore the method <span aria-hidden="true">↓</span></a><a class="button button-secondary" href="#results">View results <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
+
+    <section class="teaser container" aria-labelledby="teaser-title">
+      <div class="figure-topline"><span class="eyebrow">Physical guidance in motion</span><span class="figure-hint">Click any figure to explore <span aria-hidden="true">↗</span></span></div>
+      <figure class="hero-figure">
+        <a class="image-link" href="assets/images/interaction-sequences.png" data-lightbox aria-label="Enlarge force-guided interaction and recovery sequences">
+          <img src="assets/images/interaction-sequences.png" width="4956" height="3106" fetchpriority="high" alt="Four simulated G1 motion sequences: outward loading at the left hand, backward-right loading at the right hand, forward-right loading at the upper arm, and opposing shoulder forces during forward locomotion. Lighter to darker poses indicate progression through loading and release.">
+        </a>
+        <figcaption>Simulated responses to 30 N upper-body loads and release. Opposing shoulder loads are 30 N per side during a 0.6 m/s forward command; poses progress from light to dark over 0–6 s.</figcaption>
+      </figure>
+      <div class="teaser-message"><h2 id="teaser-title">Yield locally. Move together.</h2><p>Physical contact guides local yielding, stepping, and posture. After release, the robot resumes nominal motion.</p></div>
+    </section>
+
+    <section class="section overview-section" id="overview" aria-labelledby="overview-title">
+      <div class="container overview-layout">
+        <div><p class="eyebrow">01 / Overview</p><h2 id="overview-title">Physical contact.<br>A way to guide.</h2><p class="section-side-note">From a pull at the hand to a push at the shoulder.</p></div>
+        <div class="overview-copy"><p class="lead">Guide a humanoid through contact, with <mark>tunable yielding and coordinated motion.</mark></p><p>Soft-Walker learns from analytical admittance references to connect local upper-body compliance with whole-body following. A shared interaction latent coordinates both responses, with separate controls for their compliance levels.</p><p>At deployment, the policy uses proprioceptive histories and user commands, without external-force measurements, explicit force estimation, or predefined task-space interaction targets.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="method" aria-labelledby="method-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">02 / Method</p><h2 id="method-title">One latent. Coordinated responses.</h2><p>A shared representation connects nominal locomotion with upper-body compliance.</p></div>
+        <figure class="figure-shell framework">
+          <a class="image-link" href="assets/images/framework.png" data-lightbox aria-label="Enlarge the Soft-Walker architecture"><img src="assets/images/framework.png" width="3760" height="1440" loading="lazy" decoding="async" alt="A 25-step proprioceptive history is encoded into a shared latent. A nominal actor produces joint targets, while a compliance decoder adds constrained upper-body offsets before PD control. The force-derived velocity guide is used only during training."></a>
+          <figcaption>Proprioceptive history → shared interaction latent → nominal actor + compliance decoder → constrained joint targets.</figcaption>
+        </figure>
+        <div class="method-steps">
+          <article><span class="step-number blue">01</span><h3>Specify the response</h3><p>Admittance references define local yielding and base following, each with a tunable compliance gain.</p></article>
+          <article><span class="step-number green">02</span><h3>Learn a shared latent</h3><p>A privileged teacher and a proprioceptive student jointly learn locomotion and compliance.</p></article>
+          <article><span class="step-number orange">03</span><h3>Close the student loop</h3><p>Fine-tuning adapts the actor and decoder while the student controls the robot.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section results-section" id="results" aria-labelledby="results-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">03 / Simulation results</p><h2 id="results-title">Two controls. A spectrum of compliance.</h2><p>Adjust local yielding and base following in the same trained policy, with fixed motor PD gains.</p></div>
+        <div class="compliance-explorer">
+          <div class="tabs" role="tablist" aria-label="Compliance response"><button id="tab-local" class="tab" type="button" role="tab" aria-selected="true" aria-controls="panel-local" tabindex="0">Local yielding <span>k<sub>u</sub></span></button><button id="tab-base" class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-base" tabindex="-1">Base following <span>k<sub>b</sub></span></button></div>
+          <div id="panel-local" class="response-panel" role="tabpanel" aria-labelledby="tab-local" tabindex="0">
+            <figure class="response-figure"><a class="image-link" href="assets/images/local-compliance.png" data-lightbox aria-label="Enlarge local compliance response curves"><img src="assets/images/local-compliance.png" width="1002" height="2370" loading="lazy" decoding="async" alt="Real and ghost wrist displacements for upper-body stiffness settings of 0.5, 1, and 2. Increasing stiffness reduces the real wrist displacement."></a></figure>
+            <div class="response-copy"><span class="label blue">Upper-body response</span><h3>A softer setting.<br>More room to yield.</h3><p>Increasing k<sub>u</sub> reduces wrist displacement under the same load. Joint offsets provide local yielding while the actor coordinates posture and stepping.</p><table class="compact-table"><caption>Mean wrist displacement during loading</caption><thead><tr><th scope="col">k<sub>u</sub></th><th scope="col">0.5</th><th scope="col">1.0</th><th scope="col">2.0</th></tr></thead><tbody><tr><th scope="row">Wrist</th><td>19.64 <small>cm</small></td><td>15.95 <small>cm</small></td><td>12.40 <small>cm</small></td></tr></tbody></table><p class="small-note">k<sub>b</sub> = 1. Ghost curves show wrist motion with executed compliance offsets removed.</p><div class="recovery-note"><span>After release</span><strong>&lt; 0.11 <small>cm</small></strong><p>Mean wrist displacement over 15–20 s at all three settings.</p></div></div>
+          </div>
+          <div id="panel-base" class="response-panel" role="tabpanel" aria-labelledby="tab-base" tabindex="0" hidden>
+            <figure class="response-figure"><a class="image-link" href="assets/images/base-compliance.png" data-lightbox aria-label="Enlarge base compliance response curves"><img src="assets/images/base-compliance.png" width="1002" height="2370" loading="lazy" decoding="async" alt="Measured and guide planar speeds for base stiffness settings of 0.5, 1, and 2. Increasing stiffness reduces base speed under the same applied force."></a></figure>
+            <div class="response-copy"><span class="label green">Whole-body response</span><h3>Contact becomes<br>coordinated motion.</h3><p>Increasing k<sub>b</sub> reduces planar speed under the same load. The deployed policy follows contact through proprioception.</p><table class="compact-table"><caption>Mean planar speed during loading</caption><thead><tr><th scope="col">k<sub>b</sub></th><th scope="col">0.5</th><th scope="col">1.0</th><th scope="col">2.0</th></tr></thead><tbody><tr><th scope="row">Measured</th><td>0.851</td><td>0.634</td><td>0.265</td></tr><tr><th scope="row">Guide</th><td>0.960</td><td>0.776</td><td>0.275</td></tr></tbody></table><p class="small-note">Speeds in m/s; k<sub>u</sub> = 1. Measured speeds retain a gap from the training reference.</p><div class="recovery-note"><span>After release</span><strong>&lt; 0.002 <small>m/s</small></strong><p>Mean planar speed over 15–20 s at all three settings.</p></div></div>
+          </div>
+          <p class="experiment-note"><strong>Simulation protocol.</strong> G1, left-wrist force (15, 15, 0) N, zero velocity command, and ten paired trials per setting. Loading amplitudes are averaged over 4–10 s; the shaded interval covers loading and release over 3–11 s.</p>
+        </div>
+        <p class="result-caveat">Both controls retain some whole-body coupling; measured responses do not scale exactly with reference gains.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="recovery-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Release & recovery</p><h2 id="recovery-title">Return to motion. Keep the new position.</h2><p>Anchor-free recovery restores nominal velocity and posture, without requiring a return to the initial world position.</p></div>
+        <figure class="figure-shell"><a class="image-link" href="assets/images/torso-impulse.png" data-lightbox aria-label="Enlarge torso impulse response plots"><img src="assets/images/torso-impulse.png" width="1800" height="648" loading="lazy" decoding="async" alt="Velocity and displacement following a backward 40 N torso force lasting one second. Soft-Walker, Walker, and Robust-walker return close to zero velocity while retaining different displacements."></a><figcaption>After a 40 N backward torso load lasting 1 s, velocity returns close to zero while displacement remains. Higher base stiffness reduces Soft-Walker’s retained displacement.</figcaption></figure>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="#top">Soft-Walker<span class="footer-dot" aria-hidden="true">.</span></a><a href="#top" class="back-top">Back to top ↑</a></div></footer>
+
+  <dialog class="lightbox" id="figure-dialog" aria-labelledby="lightbox-caption"><form method="dialog"><button class="lightbox-close" aria-label="Close expanded figure" autofocus>Close <span aria-hidden="true">×</span></button></form><img id="lightbox-image" alt=""><p id="lightbox-caption"></p></dialog>
+</body>
+</html>
