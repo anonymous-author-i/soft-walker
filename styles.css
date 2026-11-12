@@ -56,9 +56,12 @@ figcaption { max-width: 900px; margin: 17px auto 0; text-align: center; }
 .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #75a892; }
 .project-name { display: block; margin: 17px 0 13px; font-size: clamp(49px, 7vw, 76px); font-weight: 750; letter-spacing: -3.5px; line-height: 1.12; color: #356b80; background: linear-gradient(110deg, #3b749c 28%, #397c68 76%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .project-subtitle { display: block; font-size: clamp(21px, 2.6vw, 31px); line-height: 1.4; font-weight: 550; letter-spacing: -.75px; }
-.hero-actions { margin-top: 25px; display: flex; justify-content: center; gap: 11px; }
+.hero-actions { margin-top: 25px; display: flex; flex-wrap: wrap; justify-content: center; gap: 11px; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 23px; min-height: 44px; padding: 10px 20px; border-radius: 8px; font-size: 12px; font-weight: 650; transition: transform .2s, background .2s; }
 .button:hover { transform: translateY(-2px); }
+.button-try { min-width: 142px; color: #fff; background: #2f6b80; border: 1px solid #2f6b80; box-shadow: 0 5px 16px rgb(47 107 128 / 20%); font-size: 14px; }
+.button-try:hover { background: #24576b; }
+.button-try span { font-size: 11px; }
 .button-primary { background: #dfeef7; color: #2e617c; border: 1px solid #cee1ee; }
 .button-primary:hover { background: #d2e7f4; }
 .button-secondary { background: #f8fbf9; color: #426d5c; border: 1px solid #d9e8df; }
@@ -151,6 +154,7 @@ figcaption { max-width: 900px; margin: 17px auto 0; text-align: center; }
   .desktop-break { display: none; }
   .hero-actions { margin-top: 21px; gap: 8px; }
   .button { font-size: 10px; padding: 9px 13px; gap: 15px; }
+  .button-try { flex-basis: 100%; max-width: 340px; font-size: 14px; }
   .figure-topline .eyebrow { font-size: 8px; letter-spacing: .8px; }
   .figure-hint { font-size: 8px; }
   .hero-figure { padding: 11px; border-radius: 11px; }
