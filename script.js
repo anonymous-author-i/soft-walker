@@ -1,5 +1,20 @@
 "use strict";
 
+// Pause the embedded simulation when the reader leaves its section.
+const walkerDemo = document.getElementById("walker-demo");
+if (walkerDemo) {
+  let demoVisible = false;
+  const sendVisibility = () => walkerDemo.contentWindow?.postMessage({
+    type: "soft-walker-visibility", visible: demoVisible && !document.hidden,
+  }, location.origin);
+  new IntersectionObserver(([entry]) => {
+    demoVisible = entry.isIntersecting;
+    sendVisibility();
+  }).observe(walkerDemo);
+  walkerDemo.addEventListener("load", sendVisibility);
+  document.addEventListener("visibilitychange", sendVisibility);
+}
+
 // Real, manuscript-reported measurements are kept in the HTML panels.
 const tabs = [...document.querySelectorAll('[role="tab"]')];
 function selectTab(selected) {

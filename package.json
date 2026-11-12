@@ -1,0 +1,20 @@
+{
+  "name": "soft-walker-project-page",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "playwright test",
+    "serve": "python3 tools/serve.py"
+  },
+  "dependencies": {
+    "@mujoco/mujoco": "3.8.0",
+    "onnxruntime-web": "1.23.2",
+    "three": "0.181.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "esbuild": "0.25.12"
+  }
+}

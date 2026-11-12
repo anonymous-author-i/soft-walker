@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1f8f8">
+  <title>Try Soft-Walker · Live G1 simulation</title>
+  <link rel="icon" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="sim.css">
+  <script type="module" src="dist/main.js"></script>
+</head>
+<body>
+  <main class="demo" id="demo">
+    <header class="toolbar">
+      <div class="title"><span class="status-dot" id="status-dot"></span><strong>Soft-Walker</strong><span class="tag">LIVE SIMULATION</span></div>
+      <div class="actions"><button id="pause" disabled>Pause</button><button id="reset" disabled>Reset</button><button id="fullscreen" aria-label="Toggle fullscreen">Full screen ↗</button></div>
+    </header>
+    <div class="workspace">
+      <section class="viewport" id="viewport" aria-label="Interactive G1 robot">
+        <canvas id="canvas" tabindex="0" aria-label="Robot simulation. Click to focus, WASD to walk, Q and E to turn. Drag the upper body to apply force."></canvas>
+        <div class="scene-label"><span class="live-label">G1 / SOFT-WALKER</span><p>Yield locally. Move together.</p></div>
+        <div class="force-hud"><span>Pull force</span><strong><span id="force-value">0.0</span> <small>/ 40 N</small></strong><div class="meter"><i id="force-meter"></i></div><span id="grab-name">Drag the upper body</span></div>
+        <div class="overlay" id="overlay">
+          <div class="start-card"><span class="eyebrow">A policy you can feel</span><h1>Walk. Pull. Release.</h1><p>Move the G1 with your keyboard.<br>Pull its upper body and watch it respond.</p><button class="primary" id="start">Start simulation <span>→</span></button><p class="load-note">Runs locally in your browser · initial download ≈ 50 MB</p></div>
+        </div>
+        <div class="canvas-hint" id="canvas-hint">Click the scene to use your keyboard</div>
+      </section>
+      <aside class="controls" aria-label="Simulation controls">
+        <div class="control-section"><span class="eyebrow">01 / Walking</span><h2>Take a step.</h2><div class="keypad" aria-label="Keyboard controls"><kbd data-key="KeyQ">Q</kbd><kbd data-key="KeyW">W</kbd><kbd data-key="KeyE">E</kbd><kbd data-key="KeyA">A</kbd><kbd data-key="KeyS">S</kbd><kbd data-key="KeyD">D</kbd></div><p class="legend">W/S forward & back<br>A/D sideways · Q/E turn</p><div class="command-readout"><span>Command</span><output id="command">0.0 · 0.0 · 0.0</output><small>x / y (m/s) · yaw (rad/s)</small></div></div>
+        <div class="control-section"><span class="eyebrow">02 / Compliance</span><h2>Find your softness.</h2><label for="alpha">Upper body <span>α <output id="alpha-value">0.50</output></span></label><input id="alpha" type="range" min="0.5" max="2" step="0.05" value="0.5"><label for="beta">Base following <span>β <output id="beta-value">1.00</output></span></label><input id="beta" type="range" min="0.5" max="2" step="0.05" value="1"><div class="range-labels"><span>Softer · 0.5</span><span>2.0 · Stiffer</span></div><button id="apply" class="apply" disabled>Apply & Reset</button><p class="applied" id="applied">Active: α 0.50 · β 1.00</p></div>
+        <div class="interaction-note"><strong>Grab the upper body</strong><p>Drag a shoulder, arm, hand or torso. The line shows your pull, capped at 40 N. Release to let go.</p><p class="camera-note">Drag the background to orbit.<br>Scroll to zoom.</p></div>
+      </aside>
+    </div>
+    <footer class="statusbar"><span id="status" role="status" aria-live="polite">Ready when you are</span><span><span id="sim-time">0.0 s</span><span class="divider">/</span><span id="rate">Paused</span></span></footer>
+  </main>
+  <noscript><p>This interactive demo requires JavaScript and a desktop browser with WebGL and WebAssembly.</p></noscript>
+</body>
+</html>

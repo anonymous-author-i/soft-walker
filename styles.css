@@ -9,6 +9,12 @@
   --line: #dce7e8;
   --accent: #2f6b8b;
 }
+.live-section { background: linear-gradient(180deg, #f6fafb, #fff); }
+.live-frame { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: 0 14px 50px rgb(36 62 75 / 5%); }
+.live-frame iframe { display: block; width: 100%; height: 880px; border: 0; background: #f1f8f8; }
+.live-caption { margin-top: 16px; text-align: center; color: var(--muted); font-size: 12px; }
+.live-caption a { color: var(--accent); margin-left: 10px; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 700px) { .live-frame iframe { height: 1040px; } .live-caption a { display: block; margin: 4px 0 0; } }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 92px; }
 body { margin: 0; color: var(--body); background: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; font-size: 16px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
