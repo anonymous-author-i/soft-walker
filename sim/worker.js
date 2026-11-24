@@ -23,7 +23,7 @@ async function initialize() {
   ort.env.wasm.proxy = false;
   ort.env.wasm.wasmPaths = new URL('../vendor/ort/', import.meta.url).href;
   const mj = await loadMujoco({locateFile: name => new URL(`../vendor/mujoco/${name}`, import.meta.url).href});
-  send({type: 'loading', message: 'Loading the G1 robot and Soft-Walker policy…'});
+  send({type: 'loading', message: 'Loading the G1 robot and CompliWalk policy…'});
   const [modelBytes, ...files] = await Promise.all([
     fetchChecked(new URL(config.model, assetBase), true),
     ...config.scene_files.map(name => fetchChecked(new URL(name, assetBase), true)),
@@ -36,7 +36,7 @@ async function initialize() {
   session = await ort.InferenceSession.create(modelBytes, {executionProviders: ['wasm']});
   if (session.inputNames.length !== 1 || session.inputNames[0] !== 'student_history' ||
       session.outputNames.length !== 2 || !['nominal_actions', 'compliance_offsets'].every(n => session.outputNames.includes(n))) {
-    throw new Error('The policy does not have the required Soft-Walker dual-output interface.');
+    throw new Error('The policy does not have the required CompliWalk dual-output interface.');
   }
   send({type: 'ready', geometry: simulation.geometry(), state: simulation.snapshot()});
 }

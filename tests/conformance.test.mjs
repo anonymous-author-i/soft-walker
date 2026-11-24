@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import * as ort from 'onnxruntime-web/wasm';
-import {SoftWalkerController} from '../sim/core.js';
+import {CompliWalkController} from '../sim/core.js';
 
 const reference = JSON.parse(readFileSync(new URL('./fixtures/python-reference.json', import.meta.url)));
 function close(actual, expected, label) {
@@ -11,7 +11,7 @@ function close(actual, expected, label) {
 }
 test('Python parity: histories, gravity, offsets, targets, scales and reset', () => {
   for (const {config, steps} of reference.cases) {
-    const controller = new SoftWalkerController(config);
+    const controller = new CompliWalkController(config);
     for (const [i, step] of steps.entries()) {
       if (step.reset) controller.reset();
       const obs = controller.observe(step.state, step.command);
@@ -25,7 +25,7 @@ test('actual ONNX Runtime Web WASM matches Python dual outputs across 102 steps'
   const session = await ort.InferenceSession.create(readFileSync(new URL('../sim/assets/policy_ampdual.onnx', import.meta.url)), {executionProviders: ['wasm']});
   try {
     for (const {config, steps} of reference.cases) {
-      const controller = new SoftWalkerController(config);
+      const controller = new CompliWalkController(config);
       for (const [i, step] of steps.entries()) {
         if (step.reset) controller.reset();
         const observation = controller.observe(step.state, step.command);

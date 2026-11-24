@@ -33,7 +33,7 @@ export function projectedGravity(quaternion) {
   return Float32Array.of(2 * (w * y - x * z), -2 * (y * z + w * x), 2 * (x * x + y * y) - 1);
 }
 
-export class SoftWalkerController {
+export class CompliWalkController {
   constructor(config, alpha = config.alpha, beta = config.beta) {
     this.config = config;
     this.complianceIds = config.compliance_joint_names.map(n => config.joint_names.indexOf(n));

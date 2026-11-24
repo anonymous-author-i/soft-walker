@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f1f8f8">
-  <title>Try Soft-Walker · Live G1 simulation</title>
+  <title>Try CompliWalk · Live G1 simulation</title>
   <link rel="icon" href="../assets/favicon.svg">
   <link rel="stylesheet" href="sim.css">
   <script type="module" src="dist/main.js"></script>
@@ -12,13 +12,13 @@
 <body>
   <main class="demo" id="demo">
     <header class="toolbar">
-      <div class="title"><span class="status-dot" id="status-dot"></span><strong>Soft-Walker</strong><span class="tag">LIVE SIMULATION</span></div>
+      <div class="title"><span class="status-dot" id="status-dot"></span><strong>CompliWalk</strong><span class="tag">LIVE SIMULATION</span></div>
       <div class="actions"><button id="pause" disabled>Pause</button><button id="reset" disabled>Reset</button><button id="fullscreen" aria-label="Toggle fullscreen">Full screen ↗</button></div>
     </header>
     <div class="workspace">
       <section class="viewport" id="viewport" aria-label="Interactive G1 robot">
         <canvas id="canvas" tabindex="0" aria-label="Robot simulation. Click to focus, WASD to walk, Q and E to turn. Drag the upper body to apply force."></canvas>
-        <div class="scene-label"><span class="live-label">G1 / SOFT-WALKER</span><p>Yield locally. Move together.</p></div>
+        <div class="scene-label"><span class="live-label">G1 / COMPLIWALK</span><p>Yield locally. Move together.</p></div>
         <div class="force-hud"><span>Pull force</span><strong><span id="force-value">0.0</span> <small>/ 40 N</small></strong><div class="meter"><i id="force-meter"></i></div><span id="grab-name">Drag the upper body</span></div>
         <div class="overlay" id="overlay">
           <div class="start-card"><span class="eyebrow">A policy you can feel</span><h1>Walk. Pull. Release.</h1><p>Move the G1 with your keyboard.<br>Pull its upper body and watch it respond.</p><button class="primary" id="start">Start simulation <span>→</span></button><p class="load-note">Runs locally in your browser · initial download ≈ 50 MB</p></div>

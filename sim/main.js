@@ -202,7 +202,7 @@ canvas.addEventListener('blur', () => { clearInput(); $('canvas-hint').textConte
 window.addEventListener('blur', clearInput);
 document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
 window.addEventListener('message', event => {
-  if (event.origin !== location.origin || event.source !== parent || event.data?.type !== 'soft-walker-visibility') return;
+  if (event.origin !== location.origin || event.source !== parent || event.data?.type !== 'compliwalk-visibility') return;
   parentVisible = Boolean(event.data.visible);
   if (!parentVisible) pause();
 });
@@ -270,7 +270,7 @@ $('fullscreen').onclick = async () => {
 window.addEventListener('pagehide', () => { worker?.terminate(); cancelAnimationFrame(animationFrame); renderer?.dispose(); });
 // Read-only diagnostics used by the browser acceptance suite.
 if (new URLSearchParams(location.search).has('test')) {
-  window.softWalkerTest = {get state() { return state; }, get running() { return running; },
+  window.compliWalkTest = {get state() { return state; }, get running() { return running; },
     grabPosition(bodyName) {
       const mesh = geometry.find(m => m.userData.name === bodyName);
       if (!mesh) return null;

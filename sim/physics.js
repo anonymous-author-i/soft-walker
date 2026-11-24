@@ -1,4 +1,4 @@
-import {SoftWalkerController, dragWrench, localToWorld, finiteVector} from './core.js';
+import {CompliWalkController, dragWrench, localToWorld, finiteVector} from './core.js';
 
 export class Simulation {
   constructor(mj, model, config) {
@@ -7,7 +7,7 @@ export class Simulation {
     this.config = config;
     this.data = new mj.MjData(model);
     model.opt.timestep = config.physics_dt;
-    this.controller = new SoftWalkerController(config);
+    this.controller = new CompliWalkController(config);
     const id = (kind, name) => {
       const value = mj.mj_name2id(model, mj.mjtObj[kind].value, name);
       if (value < 0) throw new Error(`Scene is missing ${name}.`);

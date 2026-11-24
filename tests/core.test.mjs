@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {SoftWalkerController, commandFromKeys, dragWrench, projectedGravity, localToWorld} from '../sim/core.js';
+import {CompliWalkController, commandFromKeys, dragWrench, projectedGravity, localToWorld} from '../sim/core.js';
 const config = JSON.parse(readFileSync(new URL('../sim/assets/config.json', import.meta.url)));
 const initial = {gyro: [0, 0, 0], quaternion: [1, 0, 0, 0], positions: config.default_joint_qpos, velocities: Array(29).fill(0)};
 test('all six keys, opposing keys and combined motion use body-frame commands', () => {
@@ -11,7 +11,7 @@ test('all six keys, opposing keys and combined motion use body-frame commands', 
   assert.deepEqual(commandFromKeys(new Set()), [0,0,0]);
 });
 test('history is term-major, initialized by repetition and reset completely', () => {
-  const p = new SoftWalkerController(config);
+  const p = new CompliWalkController(config);
   let obs = p.observe(initial, [.6,0,0]);
   assert.equal(obs.length, 2450);
   assert.deepEqual([...obs.slice(75,81)].map(x => x || 0), [0,0,-1,0,0,-1]);
@@ -24,7 +24,7 @@ test('history is term-major, initialized by repetition and reset completely', ()
   obs = p.observe(initial, [0,0,0]); assert.deepEqual([...obs.slice(-4)], [1,1,1,1]);
 });
 test('nonfinite offsets are sanitized, projection has final priority', () => {
-  const p = new SoftWalkerController(config);
+  const p = new CompliWalkController(config);
   const offsets = new Float32Array(15).fill(NaN);
   const nominal = new Float32Array(29); nominal[12] = 100;
   const target = p.targets(nominal, offsets);

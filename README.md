@@ -1,14 +1,14 @@
-# Soft-Walker
+# CompliWalk
 
-Project website for **Soft-Walker: Proprioceptive Force-Guided Humanoid Locomotion via Compliance Interaction Latents**.
+Project website for **CompliWalk: Proprioceptive Force-Guided Humanoid Locomotion via Compliance Interaction Latents**.
 
 [Project page](https://anonymous-author-i.github.io/soft-walker/)
 
-Soft-Walker coordinates local upper-body yielding and whole-body motion through a shared interaction latent. The deployed controller uses proprioceptive histories and user commands, with separate controls for local compliance and base following.
+CompliWalk coordinates local upper-body yielding and whole-body motion through a shared interaction latent. The deployed controller uses proprioceptive histories and user commands, with separate controls for local compliance and base following.
 
 ## Live browser demo
 
-The **Try Soft-Walker** section embeds `sim/index.html`. It runs the actual G1
+The **Try CompliWalk** section embeds `sim/index.html`. It runs the actual G1
 `policy_ampdual.onnx` using ONNX Runtime Web and MuJoCo 3.8.0 WebAssembly. Physics
 and policy inference run in one dedicated worker; Three.js renders the original
 G1 visual meshes on the main thread. No simulation backend, CDN, WebGPU, special
@@ -24,7 +24,8 @@ python3 tools/serve.py
 
 Open `http://127.0.0.1:8000/` for the project page or
 `http://127.0.0.1:8000/sim/` for the standalone demo. The preview server also
-supports `/soft-walker/` to check GitHub Pages subdirectory deployment.
+supports `/compliwalk/` and the existing `/soft-walker/` GitHub Pages path
+to check subdirectory deployment.
 The complete generated assets are included, so previewing requires only Python.
 
 ### Controls
@@ -65,7 +66,7 @@ npm run build
 `sim/dist/`, `sim/vendor/`, and `sim/assets/` are intentional deployment artifacts.
 Include them when publishing the existing static page, together with the normal
 HTML/CSS files and `.nojekyll`. All runtime paths are relative; the same files
-work at `/` and `/soft-walker/`. The initial demo download is approximately
+work at `/`, `/compliwalk/`, and the existing `/soft-walker/` path. The initial demo download is approximately
 46 MB uncompressed and starts only when the visitor clicks Start.
 
 ### Refresh model and robot assets

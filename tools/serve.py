@@ -1,4 +1,4 @@
-"""Preview both root and GitHub Pages /soft-walker/ paths, without COOP/COEP."""
+"""Preview root, /compliwalk/, and existing /soft-walker/ paths without COOP/COEP."""
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import os
@@ -12,8 +12,10 @@ class Handler(SimpleHTTPRequestHandler):
             super().log_message(format, *args)
 
     def do_GET(self):
-        if self.path.startswith('/soft-walker/'):
-            self.path = self.path[len('/soft-walker'):]
+        for prefix in ('/compliwalk', '/soft-walker'):
+            if self.path.startswith(prefix + '/'):
+                self.path = self.path[len(prefix):]
+                break
         try:
             super().do_GET()
         except (BrokenPipeError, ConnectionResetError):

@@ -4,7 +4,7 @@ async function start(page, prefix = '') {
   await page.goto(`${prefix}/sim/index.html?test`);
   await page.getByRole('button', {name: 'Start simulation'}).click();
   await expect(page.locator('#overlay')).toBeHidden();
-  await expect.poll(() => page.evaluate(() => window.softWalkerTest?.state?.time || 0)).toBeGreaterThan(.2);
+  await expect.poll(() => page.evaluate(() => window.compliWalkTest?.state?.time || 0)).toBeGreaterThan(.2);
 }
 
 test('real policy, keyboard, upper-body drag, reset and compliance controls', async ({page}, testInfo) => {
@@ -15,34 +15,34 @@ test('real policy, keyboard, upper-body drag, reset and compliance controls', as
   const canvas = page.locator('canvas');
   await canvas.focus();
   await page.keyboard.down('w'); await page.keyboard.down('q');
-  await expect.poll(() => page.evaluate(() => window.softWalkerTest.state.command[0])).toBeCloseTo(.6);
-  await expect.poll(() => page.evaluate(() => window.softWalkerTest.state.command[2])).toBeCloseTo(.5);
+  await expect.poll(() => page.evaluate(() => window.compliWalkTest.state.command[0])).toBeCloseTo(.6);
+  await expect.poll(() => page.evaluate(() => window.compliWalkTest.state.command[2])).toBeCloseTo(.5);
   await page.keyboard.up('w'); await page.keyboard.up('q');
-  await expect.poll(() => page.evaluate(() => window.softWalkerTest.state.command)).toEqual([0,0,0]);
+  await expect.poll(() => page.evaluate(() => window.compliWalkTest.state.command)).toEqual([0,0,0]);
   // Reset before grabbing a known visible body.
-  const episode = await page.evaluate(() => window.softWalkerTest.state.episode);
+  const episode = await page.evaluate(() => window.compliWalkTest.state.episode);
   await page.getByRole('button', {name: 'Reset', exact: true}).click();
-  await expect.poll(() => page.evaluate(() => window.softWalkerTest.state.episode)).toBe(episode + 1);
-  const point = await page.evaluate(() => window.softWalkerTest.grabPosition('torso_link'));
+  await expect.poll(() => page.evaluate(() => window.compliWalkTest.state.episode)).toBe(episode + 1);
+  const point = await page.evaluate(() => window.compliWalkTest.grabPosition('torso_link'));
   await page.mouse.move(point.x, point.y); await page.mouse.down();
   await page.mouse.move(point.x + 160, point.y - 80, {steps: 8});
-  await expect.poll(() => page.evaluate(() => Math.hypot(...window.softWalkerTest.state.force.force))).toBeGreaterThan(15);
-  expect(await page.evaluate(() => Math.hypot(...window.softWalkerTest.state.force.force))).toBeLessThanOrEqual(40.00001);
+  await expect.poll(() => page.evaluate(() => Math.hypot(...window.compliWalkTest.state.force.force))).toBeGreaterThan(15);
+  expect(await page.evaluate(() => Math.hypot(...window.compliWalkTest.state.force.force))).toBeLessThanOrEqual(40.00001);
   await page.mouse.up();
-  await expect.poll(() => page.evaluate(() => Math.hypot(...window.softWalkerTest.state.force.force))).toBe(0);
+  await expect.poll(() => page.evaluate(() => Math.hypot(...window.compliWalkTest.state.force.force))).toBe(0);
   await canvas.focus(); await page.keyboard.down('a');
-  await expect.poll(() => page.evaluate(() => window.softWalkerTest.state.command[1])).toBeCloseTo(.5);
+  await expect.poll(() => page.evaluate(() => window.compliWalkTest.state.command[1])).toBeCloseTo(.5);
   await page.locator('#alpha').focus();
-  await expect.poll(() => page.evaluate(() => window.softWalkerTest.state.command)).toEqual([0,0,0]);
+  await expect.poll(() => page.evaluate(() => window.compliWalkTest.state.command)).toEqual([0,0,0]);
   await page.keyboard.up('a');
   await page.locator('#alpha').fill('2'); await page.locator('#beta').fill('0.5');
   await page.getByRole('button', {name: 'Apply & Reset'}).click();
   await expect(page.locator('#applied')).toHaveText('Active: α 2.00 · β 0.50');
   await page.getByRole('button', {name: 'Pause', exact: true}).click();
   await expect(page.getByRole('button', {name: 'Resume', exact: true})).toBeVisible();
-  const time = await page.evaluate(() => window.softWalkerTest.state.time);
+  const time = await page.evaluate(() => window.compliWalkTest.state.time);
   await page.waitForTimeout(150);
-  expect(await page.evaluate(() => window.softWalkerTest.state.time)).toBe(time);
+  expect(await page.evaluate(() => window.compliWalkTest.state.time)).toBe(time);
   expect(errors).toEqual([]);
 });
 
@@ -58,10 +58,10 @@ test('continuous 30-second run remains live, with finite state and no residual i
   test.setTimeout(120000);
   await start(page);
   const startTime = Date.now();
-  await expect.poll(() => page.evaluate(() => window.softWalkerTest.state.time), {timeout: 90000}).toBeGreaterThan(30);
-  const result = await page.evaluate(() => ({running: window.softWalkerTest.running,
-    root: window.softWalkerTest.state.root, command: window.softWalkerTest.state.command,
-    force: window.softWalkerTest.state.force.force, rate: document.getElementById('rate').textContent}));
+  await expect.poll(() => page.evaluate(() => window.compliWalkTest.state.time), {timeout: 90000}).toBeGreaterThan(30);
+  const result = await page.evaluate(() => ({running: window.compliWalkTest.running,
+    root: window.compliWalkTest.state.root, command: window.compliWalkTest.state.command,
+    force: window.compliWalkTest.state.force.force, rate: document.getElementById('rate').textContent}));
   expect(result.running).toBeTruthy();
   expect(result.root.every(Number.isFinite)).toBeTruthy();
   expect(result.root[2]).toBeGreaterThan(.5);
@@ -82,7 +82,7 @@ test('unavailable WebGL shows an actionable error', async ({page}) => {
 });
 
 test('subdirectory deployment and missing model failure', async ({page}) => {
-  await start(page, '/soft-walker');
+  await start(page, '/compliwalk');
   await page.reload();
   await page.route('**/policy_ampdual.onnx', route => route.fulfill({status: 404, body: 'missing'}));
   await page.getByRole('button', {name: 'Start simulation'}).click();

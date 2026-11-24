@@ -5,7 +5,7 @@ const walkerDemo = document.getElementById("walker-demo");
 if (walkerDemo) {
   let demoVisible = false;
   const sendVisibility = () => walkerDemo.contentWindow?.postMessage({
-    type: "soft-walker-visibility", visible: demoVisible && !document.hidden,
+    type: "compliwalk-visibility", visible: demoVisible && !document.hidden,
   }, location.origin);
   new IntersectionObserver(([entry]) => {
     demoVisible = entry.isIntersecting;

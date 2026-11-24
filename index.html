@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f1f8f8">
-  <title>Soft-Walker · Proprioceptive Force-Guided Humanoid Locomotion</title>
-  <meta name="description" content="Soft-Walker coordinates local yielding and whole-body motion through compliance interaction latents, using proprioceptive histories for anchor-free physical guidance.">
+  <title>CompliWalk · Proprioceptive Force-Guided Humanoid Locomotion</title>
+  <meta name="description" content="CompliWalk coordinates local yielding and whole-body motion through compliance interaction latents, using proprioceptive histories for anchor-free physical guidance.">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="stylesheet" href="styles.css?v=20261112-try-it">
   <script src="script.js" defer></script>
@@ -15,7 +15,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <nav class="nav container" aria-label="Main navigation">
-      <a class="brand" href="#top" aria-label="Soft-Walker home"><span class="brand-mark" aria-hidden="true">s<span>w</span></span>Soft-Walker</a>
+      <a class="brand" href="#top" aria-label="CompliWalk home"><span class="brand-mark" aria-hidden="true">c<span>w</span></span>CompliWalk</a>
       <div class="nav-links"><a href="#overview">Overview</a><a href="#try">Try it</a><a href="#method">Method</a><a href="#results">Results</a></div>
     </nav>
   </header>
@@ -24,7 +24,7 @@
     <section class="hero" id="top" aria-labelledby="project-title">
       <div class="container hero-inner">
         <p class="eyebrow hero-eyebrow"><span class="status-dot" aria-hidden="true"></span>Learning to move with physical guidance</p>
-        <h1 id="project-title"><span class="project-name">Soft-Walker</span><span class="project-subtitle">Proprioceptive Force-Guided Humanoid Locomotion<br class="desktop-break"> via Compliance Interaction Latents</span></h1>
+        <h1 id="project-title"><span class="project-name">CompliWalk</span><span class="project-subtitle">Proprioceptive Force-Guided Humanoid Locomotion<br class="desktop-break"> via Compliance Interaction Latents</span></h1>
         <div class="hero-actions"><a class="button button-try" href="sim/index.html">Try It <span aria-hidden="true">▶</span></a><a class="button button-primary" href="#method">Explore the method <span aria-hidden="true">↓</span></a><a class="button button-secondary" href="#results">View results <span aria-hidden="true">↗</span></a></div>
       </div>
     </section>
@@ -43,14 +43,14 @@
     <section class="section overview-section" id="overview" aria-labelledby="overview-title">
       <div class="container overview-layout">
         <div><p class="eyebrow">01 / Overview</p><h2 id="overview-title">Physical contact.<br>A way to guide.</h2><p class="section-side-note">From a pull at the hand to a push at the shoulder.</p></div>
-        <div class="overview-copy"><p class="lead">Guide a humanoid through contact, with <mark>tunable yielding and coordinated motion.</mark></p><p>Soft-Walker learns from analytical admittance references to connect local upper-body compliance with whole-body following. A shared interaction latent coordinates both responses, with separate controls for their compliance levels.</p><p>At deployment, the policy uses proprioceptive histories and user commands, without external-force measurements, explicit force estimation, or predefined task-space interaction targets.</p></div>
+        <div class="overview-copy"><p class="lead">Guide a humanoid through contact, with <mark>tunable yielding and coordinated motion.</mark></p><p>CompliWalk learns from analytical admittance references to connect local upper-body compliance with whole-body following. A shared interaction latent coordinates both responses, with separate controls for their compliance levels.</p><p>At deployment, the policy uses proprioceptive histories and user commands, without external-force measurements, explicit force estimation, or predefined task-space interaction targets.</p></div>
       </div>
     </section>
 
     <section class="section live-section" id="try" aria-labelledby="live-title">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">Interactive / In your browser</p><h2 id="live-title">Try Soft-Walker.</h2><p>Walk with WASD, turn with Q/E, and pull the upper body to feel its response. Every pull is limited to 40 N.</p></div>
-        <div class="live-frame"><iframe id="walker-demo" src="sim/index.html" title="Soft-Walker interactive G1 simulation" width="1120" height="880" style="display: block; width: 100%; border: 0;" loading="lazy" allow="fullscreen" allowfullscreen></iframe></div>
+        <div class="section-heading"><p class="eyebrow">Interactive / In your browser</p><h2 id="live-title">Try CompliWalk.</h2><p>Walk with WASD, turn with Q/E, and pull the upper body to feel its response. Every pull is limited to 40 N.</p></div>
+        <div class="live-frame"><iframe id="walker-demo" src="sim/index.html" title="CompliWalk interactive G1 simulation" width="1120" height="880" style="display: block; width: 100%; border: 0;" loading="lazy" allow="fullscreen" allowfullscreen></iframe></div>
         <p class="live-caption">Best with a desktop keyboard and mouse. <a href="sim/index.html" target="_blank" rel="noopener">Open standalone demo ↗</a></p>
       </div>
     </section>
@@ -59,7 +59,7 @@
       <div class="container">
         <div class="section-heading"><p class="eyebrow">02 / Method</p><h2 id="method-title">One latent. Coordinated responses.</h2><p>A shared representation connects nominal locomotion with upper-body compliance.</p></div>
         <figure class="figure-shell framework">
-          <a class="image-link" href="assets/images/framework.png" data-lightbox aria-label="Enlarge the Soft-Walker architecture"><img src="assets/images/framework.png" width="3760" height="1440" loading="lazy" decoding="async" alt="A 25-step proprioceptive history is encoded into a shared latent. A nominal actor produces joint targets, while a compliance decoder adds constrained upper-body offsets before PD control. The force-derived velocity guide is used only during training."></a>
+          <a class="image-link" href="assets/images/framework.png" data-lightbox aria-label="Enlarge the CompliWalk architecture"><img src="assets/images/framework.png" width="3760" height="1440" loading="lazy" decoding="async" alt="A 25-step proprioceptive history is encoded into a shared latent. A nominal actor produces joint targets, while a compliance decoder adds constrained upper-body offsets before PD control. The force-derived velocity guide is used only during training."></a>
           <figcaption>Proprioceptive history → shared interaction latent → nominal actor + compliance decoder → constrained joint targets.</figcaption>
         </figure>
         <div class="method-steps">
@@ -92,12 +92,12 @@
     <section class="section" aria-labelledby="recovery-title">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">Release & recovery</p><h2 id="recovery-title">Return to motion. Keep the new position.</h2><p>Anchor-free recovery restores nominal velocity and posture, without requiring a return to the initial world position.</p></div>
-        <figure class="figure-shell"><a class="image-link" href="assets/images/torso-impulse.png" data-lightbox aria-label="Enlarge torso impulse response plots"><img src="assets/images/torso-impulse.png" width="1800" height="648" loading="lazy" decoding="async" alt="Velocity and displacement following a backward 40 N torso force lasting one second. Soft-Walker, Walker, and Robust-walker return close to zero velocity while retaining different displacements."></a><figcaption>After a 40 N backward torso load lasting 1 s, velocity returns close to zero while displacement remains. Higher base stiffness reduces Soft-Walker’s retained displacement.</figcaption></figure>
+        <figure class="figure-shell"><a class="image-link" href="assets/images/torso-impulse.png" data-lightbox aria-label="Enlarge torso impulse response plots"><img src="assets/images/torso-impulse.png" width="1800" height="648" loading="lazy" decoding="async" alt="Velocity and displacement following a backward 40 N torso force lasting one second. CompliWalk, Walker, and Robust-walker return close to zero velocity while retaining different displacements."></a><figcaption>After a 40 N backward torso load lasting 1 s, velocity returns close to zero while displacement remains. Higher base stiffness reduces CompliWalk’s retained displacement.</figcaption></figure>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="#top">Soft-Walker<span class="footer-dot" aria-hidden="true">.</span></a><a href="#top" class="back-top">Back to top ↑</a></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="#top">CompliWalk<span class="footer-dot" aria-hidden="true">.</span></a><a href="#top" class="back-top">Back to top ↑</a></div></footer>
 
   <dialog class="lightbox" id="figure-dialog" aria-labelledby="lightbox-caption"><form method="dialog"><button class="lightbox-close" aria-label="Close expanded figure" autofocus>Close <span aria-hidden="true">×</span></button></form><img id="lightbox-image" alt=""><p id="lightbox-caption"></p></dialog>
 </body>
